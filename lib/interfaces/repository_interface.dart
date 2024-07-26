@@ -11,13 +11,13 @@ abstract class IRepository {
     HttpMethod.patch => patch()
   };
 
-  Future<Response> get() async => throw UnimplementedError('Not implemented');
-  Future<Response> post() async => throw UnimplementedError('Not implemented');
-  Future<Response> put() async => throw UnimplementedError('Not implemented');
-  Future<Response> delete() async => throw UnimplementedError('Not implemented');
-  Future<Response> head() async => throw UnimplementedError('Not implemented');
-  Future<Response> options() async => throw UnimplementedError('Not implemented');
-  Future<Response> patch() async => throw UnimplementedError('Not implemented');
+  Future<Response> get() async => Response(statusCode: 501, body: 'Not implemented');
+  Future<Response> post() async => Response(statusCode: 501, body: 'Not implemented');
+  Future<Response> put() async => Response(statusCode: 501, body: 'Not implemented');
+  Future<Response> delete() async => Response(statusCode: 501, body: 'Not implemented');
+  Future<Response> head() async => Response(statusCode: 501, body: 'Not implemented');
+  Future<Response> options() async => Response(statusCode: 501, body: 'Not implemented');
+  Future<Response> patch() async => Response(statusCode: 501, body: 'Not implemented');
 
 
 }
