@@ -1,6 +1,6 @@
 import 'package:dart_frog/dart_frog.dart';
 
-abstract class IRepository {
+abstract class Repository {
   Future<Response> direct(Request request) async => switch(request.method) {
     HttpMethod.get => get(),
     HttpMethod.post => post(),
