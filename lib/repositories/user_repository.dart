@@ -1,7 +1,7 @@
-import 'package:api_architecture/interfaces/repository_interface.dart';
+import 'package:api_architecture/models/repository.dart';
 import 'package:dart_frog/src/_internal.dart';
 
-class UserRepository extends IRepository {
+class UserRepository extends Repository {
   @override
   Future<Response> get() {
     return super.get();

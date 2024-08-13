@@ -1,7 +1,7 @@
-import 'package:api_architecture/interfaces/repository_interface.dart';
+import 'package:api_architecture/models/repository.dart';
 import 'package:dart_frog/src/_internal.dart';
 
-class CarsRepository extends IRepository {
+class CarsRepository extends Repository {
   @override
   Future<Response> post() {
     return super.post();
