@@ -1,5 +1,6 @@
 final class Config {
   static Config instance = Config();
   
-  String secret = 'your secret key';
+  final String secret = 'your secret key';
+  final bool isDev = false;
 }

@@ -1,17 +1,25 @@
+import 'package:api_architecture/config.dart';
 import 'package:api_architecture/core/services/logger.dart';
+import 'package:api_architecture/core/utils/error_code.dart';
 import 'package:dart_frog/dart_frog.dart';
 import 'package:supabase/supabase.dart';
 
-Future<Response> errorHandler(Object e) async {
+Future<Response> errorParse(Exception e) async {
   Logger.instance.e(e);
   
-  if(e is PostgrestException) {
-    return Response.json(statusCode: 500, body: {
-      "message": e.message,
-      "code": e.code
-    });
-  }
-  return Response.json(statusCode: 500, body: {
-      "message": e.toString()
-    });
+  return Response.json(
+    statusCode: ErrorCodes.fromException(e).httpCode,
+    body: !Config.instance.isDev ? {
+      "message": ErrorCodes.fromException(e).message,
+      "code": ErrorCodes.fromException(e).code,
+    }: switch (e) {
+      PostgrestException() => {
+        "message": e.message,
+        "code": e.code,
+      },
+      _ => {
+        "message": e.toString()
+      }
+    }
+  );
 }

@@ -44,15 +44,16 @@ final class Logger {
     }
   }
 
-  void answer(Response response) async => _log('[request answer] ${await response.body()}', LogColors.warning);
-  void request(Request request) async {
+  void _answer(Response response) async => _log('[request answer] ${await response.body()}', LogColors.warning);
+  void _request(Request request) async {
     _log('[incoming request] ${request.uri.toString()}', LogColors.success);
     _log('[incoming request body] ${await request.body()}', LogColors.success);
   }
+
   Middleware requestsLoggerMiddleware() {
     return (handler) {
       return (request) {
-        Logger.instance.request(request.request);
+        _request(request.request);
         return handler(request);
       };
     };
