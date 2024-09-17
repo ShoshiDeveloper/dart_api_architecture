@@ -15,14 +15,17 @@ enum LogColors {
   final int colorCode;
 }
 
-abstract class Logger {
-  static void _log(String msg, LogColors logColor) {
+final class Logger {
+  Logger._();
+  static Logger instance = Logger._();
+
+  void _log(String msg, LogColors logColor) {
     final out = msg.split('\n').map((l) => '\x1B[${logColor.colorCode}m$l\x1B[0m').join('\n');
     developer.log(out);
     print(out);
   }
 
-  static void e(Object? e, {int stackTraceLength = 7}) {
+  void e(Object? e, {int stackTraceLength = 7}) {
     final trace = StackTrace.current.toString().split('\n').skip(1).take(stackTraceLength).join('\n');
 
     if (e is PostgrestException) {
@@ -41,9 +44,18 @@ abstract class Logger {
     }
   }
 
-  static void answer(Response response) async => _log('[request answer] ${await response.body()}', LogColors.warning);
-  static void request(Request request) async {
+  void answer(Response response) async => _log('[request answer] ${await response.body()}', LogColors.warning);
+  void request(Request request) async {
     _log('[incoming request] ${request.uri.toString()}', LogColors.success);
     _log('[incoming request body] ${await request.body()}', LogColors.success);
   }
+  Middleware requestsLoggerMiddleware() {
+    return (handler) {
+      return (request) {
+        Logger.instance.request(request.request);
+        return handler(request);
+      };
+    };
+  }
 }
+

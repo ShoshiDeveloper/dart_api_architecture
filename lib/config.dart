@@ -1,3 +1,5 @@
-class Config {
-  static const secret = 'your secret key';
+final class Config {
+  static Config instance = Config();
+  
+  String secret = 'your secret key';
 }
