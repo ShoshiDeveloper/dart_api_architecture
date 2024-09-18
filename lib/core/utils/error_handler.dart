@@ -4,6 +4,7 @@ import 'package:api_architecture/core/utils/error_code.dart';
 import 'package:dart_frog/dart_frog.dart';
 import 'package:supabase/supabase.dart';
 
+///This method is only used to handle errors that occur in ```try``` ```catch```, which is in the **Repository**
 Future<Response> errorParse(Exception e) async {
   Logger.instance.e(e);
   
