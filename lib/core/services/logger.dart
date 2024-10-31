@@ -46,7 +46,6 @@ final class Logger {
     }
   }
 
-  void _answer(Response response) async => _log('[request answer] ${await response.body()}', LogColors.warning);
   void _request(Request request) async {
     _log('[incoming request] ${request.uri.toString()}', LogColors.success);
     _log('[incoming request body] ${await request.body()}', LogColors.success);

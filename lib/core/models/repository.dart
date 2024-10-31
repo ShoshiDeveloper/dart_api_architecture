@@ -1,3 +1,4 @@
+import 'package:api_architecture/core/utils/error_code.dart';
 import 'package:dart_frog/dart_frog.dart';
 
 abstract class Repository {
@@ -11,12 +12,12 @@ abstract class Repository {
     HttpMethod.patch => patch(request, dynamicRouteParams)
   };
 
-  Future<Response> get(Request request, [Map<String, dynamic>? dynamicRouteParams]) async => Response(statusCode: 501, body: 'Not implemented');
-  Future<Response> post(Request request, [Map<String, dynamic>? dynamicRouteParams]) async => Response(statusCode: 501, body: 'Not implemented');
-  Future<Response> put(Request request, [Map<String, dynamic>? dynamicRouteParams]) async => Response(statusCode: 501, body: 'Not implemented');
-  Future<Response> delete(Request request, [Map<String, dynamic>? dynamicRouteParams]) async => Response(statusCode: 501, body: 'Not implemented');
-  Future<Response> head(Request request, [Map<String, dynamic>? dynamicRouteParams]) async => Response(statusCode: 501, body: 'Not implemented');
-  Future<Response> options(Request request, [Map<String, dynamic>? dynamicRouteParams]) async => Response(statusCode: 501, body: 'Not implemented');
-  Future<Response> patch(Request request, [Map<String, dynamic>? dynamicRouteParams]) async => Response(statusCode: 501, body: 'Not implemented');
+  Future<Response> get(Request request, [Map<String, dynamic>? dynamicRouteParams]) async => ErrorCodes.notImplemented.response;
+  Future<Response> post(Request request, [Map<String, dynamic>? dynamicRouteParams]) async => ErrorCodes.notImplemented.response;
+  Future<Response> put(Request request, [Map<String, dynamic>? dynamicRouteParams]) async => ErrorCodes.notImplemented.response;
+  Future<Response> delete(Request request, [Map<String, dynamic>? dynamicRouteParams]) async => ErrorCodes.notImplemented.response;
+  Future<Response> head(Request request, [Map<String, dynamic>? dynamicRouteParams]) async => ErrorCodes.notImplemented.response;
+  Future<Response> options(Request request, [Map<String, dynamic>? dynamicRouteParams]) async => ErrorCodes.notImplemented.response;
+  Future<Response> patch(Request request, [Map<String, dynamic>? dynamicRouteParams]) async => ErrorCodes.notImplemented.response;
 }
 

@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:api_architecture/config.dart';
+import 'package:api_architecture/exceptions/wrong_bearer_token_exception.dart';
 import 'package:api_architecture/exceptions/wrong_json_exception.dart';
 import 'package:bearer_token_package/bearer_token.dart';
 import 'package:dart_frog/dart_frog.dart';
