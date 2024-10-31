@@ -20,9 +20,11 @@ final class Logger {
   static Logger instance = Logger._();
 
   void _log(String msg, LogColors logColor) {
+    final now = DateTime.now();
     final out = msg.split('\n').map((l) => '\x1B[${logColor.colorCode}m$l\x1B[0m').join('\n');
-    developer.log(out);
-    print(out);
+    
+    developer.log('[$now] $out');
+    print('[$now] $out');
   }
 
   void e(Object? e, {int stackTraceLength = 7}) {
