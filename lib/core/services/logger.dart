@@ -1,5 +1,4 @@
 import 'dart:developer' as developer;
-import 'package:dart_frog/dart_frog.dart';
 import 'package:supabase/supabase.dart';
 
 enum LogColors {
@@ -44,20 +43,6 @@ final class Logger {
       _log('[error (undefined)] Logger.e() fallback warning - e is undefined', LogColors.warning);
       _log('[${e.runtimeType}] $e\n[stacktrace] $trace', LogColors.error);
     }
-  }
-
-  void _request(Request request) async {
-    _log('[incoming request] ${request.uri.toString()}', LogColors.success);
-    _log('[incoming request body] ${await request.body()}', LogColors.success);
-  }
-
-  Middleware requestsLoggerMiddleware() {
-    return (handler) {
-      return (request) {
-        _request(request.request);
-        return handler(request);
-      };
-    };
   }
 }
 
