@@ -1,4 +1,6 @@
 import 'dart:developer' as developer;
+import 'dart:ffi';
+import 'package:dart_frog/dart_frog.dart';
 import 'package:supabase/supabase.dart';
 
 enum LogColors {
@@ -19,11 +21,11 @@ final class Logger {
   static Logger instance = Logger._();
 
   void _log(String msg, LogColors logColor) {
-    final now = DateTime.now();
+    // final now = DateTime.now();
     final out = msg.split('\n').map((l) => '\x1B[${logColor.colorCode}m$l\x1B[0m').join('\n');
     
-    developer.log('[$now] $out');
-    print('[$now] $out');
+    developer.log('$out');
+    print('$out');
   }
 
   void e(Object? e, {int stackTraceLength = 7}) {
@@ -43,6 +45,34 @@ final class Logger {
       _log('[error (undefined)] Logger.e() fallback warning - e is undefined', LogColors.warning);
       _log('[${e.runtimeType}] $e\n[stacktrace] $trace', LogColors.error);
     }
+  }
+
+  Future _request(Request request, DateTime inTime) async {
+    final body = await request.body();
+
+    _log('========================================================================================', LogColors.message);
+    _log('[request] $inTime [${request.method.name.toUpperCase()}] ${request.uri.path}${request.uri.query}', LogColors.notification);
+    if(body.isNotEmpty) _log('[body] $body', LogColors.notification);
+  }
+  void _response(Response response, Duration elapsed) async {
+    _log('[response] ${elapsed.toString()} [${response.statusCode}] ', LogColors.success);
+  }
+
+  Handler logRequest(Handler handler) {
+    return (context) async {
+      final now = DateTime.now();
+      final stopwatch = Stopwatch();
+
+      await _request(context.request, now);
+      
+      stopwatch.start();
+      final response = await handler(context);
+      stopwatch.stop();
+
+      _response(response, stopwatch.elapsed);
+    
+      return response;
+    };
   }
 }
 
