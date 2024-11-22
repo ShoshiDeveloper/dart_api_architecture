@@ -1,5 +1,4 @@
 import 'dart:developer' as developer;
-import 'dart:ffi';
 import 'package:dart_frog/dart_frog.dart';
 import 'package:supabase/supabase.dart';
 
@@ -23,13 +22,13 @@ final class Logger {
   void _log(String msg, LogColors logColor) {
     // final now = DateTime.now();
     final out = msg.split('\n').map((l) => '\x1B[${logColor.colorCode}m$l\x1B[0m').join('\n');
-    
+
     developer.log('$out');
     print('$out');
   }
 
-  void e(Object? e, {int stackTraceLength = 7}) {
-    final trace = StackTrace.current.toString().split('\n').skip(1).take(stackTraceLength).join('\n');
+  void e(Object? e, {StackTrace? st, int stackTraceLength = 7}) {
+    final trace = st ?? StackTrace.current.toString().split('\n').skip(1).take(stackTraceLength).join('\n');
 
     if (e is PostgrestException) {
       _log('[postgress-exception] [code] ${e.code}\n[data] ${e.message}', LogColors.error);
@@ -52,8 +51,9 @@ final class Logger {
 
     _log('========================================================================================', LogColors.message);
     _log('[request] $inTime [${request.method.name.toUpperCase()}] ${request.uri.path}${request.uri.query}', LogColors.notification);
-    if(body.isNotEmpty) _log('[body] $body', LogColors.notification);
+    if (body.isNotEmpty) _log('[body] $body', LogColors.notification);
   }
+
   void _response(Response response, Duration elapsed) async {
     _log('[response] ${elapsed.toString()} [${response.statusCode}] ', LogColors.success);
   }
@@ -64,15 +64,14 @@ final class Logger {
       final stopwatch = Stopwatch();
 
       await _request(context.request, now);
-      
+
       stopwatch.start();
       final response = await handler(context);
       stopwatch.stop();
 
       _response(response, stopwatch.elapsed);
-    
+
       return response;
     };
   }
 }
-
