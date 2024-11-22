@@ -6,12 +6,6 @@ Future<Response> onRequest(RequestContext context) async => await _RouteReposito
 class _RouteRepository extends Repository {
   @override
   Future<Response> get(Request request, [Map<String, dynamic>? dynamicRouteParams]) {
-    try {
-      
-    } catch (e) {
-      if(e is! Exception) return;
-      e.response
-    }
     throw Exception('some exception example');
   }
 
