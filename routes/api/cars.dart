@@ -11,8 +11,7 @@ class _RouteRepository extends Repository {
 
   @override
   Future<Response> put(Request request, [Map<String, dynamic>? dynamicRouteParams]) {
-    // TODO: implement put
-    return super.put(request, dynamicRouteParams);
+    throw RepositoryException(ErrorCodes.alreadyExists);
   }
 
   @override

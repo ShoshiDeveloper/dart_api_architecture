@@ -1,5 +1,4 @@
 import 'package:api_architecture/exceptions/wrong_bearer_token_exception.dart';
-import 'package:api_architecture/exceptions/wrong_json_exception.dart';
 import 'package:dart_frog/dart_frog.dart';
 import 'package:supabase/supabase.dart';
 
@@ -37,7 +36,6 @@ enum ErrorCodes {
   static ErrorCodes byException(Exception exception) {
     return switch (exception) {
       PostgrestException() => ErrorCodes.postgress,
-      WrongJsonException() => ErrorCodes.wrongJson,
       WrongBearerTokenException() => ErrorCodes.accessDenied,
       _ => ErrorCodes.undefiend
     };

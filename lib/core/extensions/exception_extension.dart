@@ -1,5 +1,5 @@
 import 'package:api_architecture/core/services/logger.dart';
-import 'package:api_architecture/core/utils/error_code.dart';
+import 'package:api_architecture/core/enums/error_code.dart';
 import 'package:api_architecture/exceptions/repository_exception.dart';
 import 'package:dart_frog/dart_frog.dart';
 

@@ -1,8 +1,10 @@
 import 'package:api_architecture/core/extensions/extensions.dart';
-import 'package:api_architecture/core/utils/error_code.dart';
+import 'package:api_architecture/core/enums/error_code.dart';
 import 'package:dart_frog/dart_frog.dart';
 
 export 'package:api_architecture/core/extensions/extensions.dart';
+export 'package:api_architecture/core/enums/error_code.dart';
+export 'package:api_architecture/exceptions/repository_exception.dart';
 export 'package:api_architecture/core/services/db.dart';
 
 abstract class Repository {
