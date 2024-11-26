@@ -21,7 +21,7 @@ abstract class Repository {
       return response;
     } catch (e, st) {
       if (e is! Exception) return ErrorCodes.undefiend.response;
-      return e.responseWithTrace(st);
+      return e.getRresponseWithTrace(st);
     }
   }
 

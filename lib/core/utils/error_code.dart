@@ -19,7 +19,7 @@ enum ErrorCodes {
   undefiend(httpCode: 500, code: 'S0', message: 'Something went wrong'),
   notImplemented(httpCode: 501, code: 'S1', message: 'Not implemented'),
   unvailable(httpCode: 503, code: 'S3', message: 'The service is temporarily unavailable'),
-  
+
   //Postgrest error codes
   postgress(httpCode: 500, code: 'SP1', message: 'FATAL SERVER ERROR'),
 
@@ -34,7 +34,7 @@ enum ErrorCodes {
   final String code;
   final String message;
 
-  static ErrorCodes fromException(Exception exception) {
+  static ErrorCodes byException(Exception exception) {
     return switch (exception) {
       PostgrestException() => ErrorCodes.postgress,
       WrongJsonException() => ErrorCodes.wrongJson,
@@ -43,11 +43,5 @@ enum ErrorCodes {
     };
   }
 
-  Response get response => Response.json(
-    statusCode: this.httpCode,
-    body: {
-      'code': this.code,
-      'message': this.message
-    }
-  ); 
+  Response get response => Response.json(statusCode: this.httpCode, body: {'code': this.code, 'message': this.message});
 }
